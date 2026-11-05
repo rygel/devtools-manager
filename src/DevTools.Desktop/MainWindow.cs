@@ -49,6 +49,9 @@ public sealed partial class MainWindow : Window, IDisposable
     private readonly ListBox _migrationEdits = MakeList();
     private readonly ListBox _migrationEnvironments = MakeList();
     private readonly ListBox _disk = MakeList();
+    private readonly TextBox _diskSearch = new() { Name = "DiskSearch", PlaceholderText = "Search by name, path or environment", MinWidth = 260 };
+    private readonly TextBlock _diskCount = Ui.Dim(null, 12);
+    private DiskRow[] _allDiskRows = [];
     private readonly ListBox _cleanupTargets = MakeList();
     private readonly ListBox _wslNames = MakeList();
     private readonly ContentControl _projectDetail = new();

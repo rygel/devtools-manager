@@ -36,12 +36,13 @@ public sealed partial class MainWindow
         var diskProjects = Machines().SelectMany(machine => machine.View.Snapshot.Projects
             .Where(p => p.State == ProjectState.Active).Select(p => (Project: p, Machine: machine))).ToList();
         var largest = diskProjects.Max(x => x.Project.SizeBytes) ?? 0;
-        _disk.ItemsSource = diskProjects.OrderByDescending(x => x.Project.SizeBytes).Select(x =>
+        _allDiskRows = diskProjects.OrderByDescending(x => x.Project.SizeBytes).Select(x =>
         {
             var p = x.Project;
             var plain = $"[{x.Machine.View.Snapshot.EnvironmentName}] {p.DisplayName}  ·  {FormatBytes(p.SizeBytes)}  ·  artifacts {FormatBytes(p.ArtifactBytes)}{(p.Stale ? "  ·  stale scan" : "")}\n{p.Path}";
             return new DiskRow(p, x.Machine.View, x.Machine.IsWsl, largest > 0 ? (p.SizeBytes ?? 0) / (double)largest : 0, plain);
         }).ToArray();
+        PopulateDisk();
         _cleanupTargets.ItemsSource = Array.Empty<CleanupRow>();
         SetNavigation();
         ShowProject();
