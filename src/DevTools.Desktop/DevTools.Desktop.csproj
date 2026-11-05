@@ -3,6 +3,8 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>DevTools.Desktop</RootNamespace>
     <AssemblyName>DevTools.Desktop</AssemblyName>
+    <!-- Rendered from src/DevTools.Server/wwwroot/favicon.svg with ImageMagick (16, 32, 48, 256 px). Sets the .exe file icon. -->
+    <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia.Desktop" Version="12.1.4" />
