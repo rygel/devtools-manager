@@ -133,4 +133,44 @@ public sealed class DesktopTests
         }
         finally { Directory.Delete(path, true); }
     }
+
+    [Fact]
+    public void DiskSearchNarrowsTheListByName()
+    {
+        AvaloniaTestHost.Ensure();
+        var path = Path.Combine(Path.GetTempPath(), "devtools-tests", Guid.NewGuid().ToString("N"));
+        try
+        {
+            var store = new SqliteStore(path);
+            store.Save(new IndexSnapshot
+            {
+                Projects =
+                [
+                    new ProjectRecord { Name = "alpha-api", Path = "/code/alpha-api", State = ProjectState.Active, SizeBytes = 900 },
+                    new ProjectRecord { Name = "beta-web", Path = "/code/beta-web", State = ProjectState.Active, SizeBytes = 100 }
+                ]
+            });
+            var window = new MainWindow(path);
+            window.Show();
+            Avalonia.Threading.Dispatcher.UIThread.RunJobs();
+
+            var list = window.GetVisualDescendants().OfType<ListBox>().Single(x => x.Name == "DiskList");
+            var search = window.GetVisualDescendants().OfType<TextBox>().Single(x => x.Name == "DiskSearch");
+            Assert.Equal(2, list.ItemsSource!.Cast<DiskRow>().Count());
+
+            search.Text = "beta";
+            Avalonia.Threading.Dispatcher.UIThread.RunJobs();
+            Assert.Equal("beta-web", Assert.Single(list.ItemsSource!.Cast<DiskRow>()).Project.Name);
+
+            search.Text = "no-match";
+            Avalonia.Threading.Dispatcher.UIThread.RunJobs();
+            Assert.Empty(list.ItemsSource!.Cast<DiskRow>());
+
+            search.Text = "";
+            Avalonia.Threading.Dispatcher.UIThread.RunJobs();
+            Assert.Equal(2, list.ItemsSource!.Cast<DiskRow>().Count());
+            window.Close();
+        }
+        finally { Directory.Delete(path, true); }
+    }
 }

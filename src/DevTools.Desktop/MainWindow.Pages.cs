@@ -375,6 +375,19 @@ public sealed partial class MainWindow
     {
         _disk.ItemTemplate = new FuncDataTemplate<DiskRow>((row, _) => DiskRowView(row));
         _disk.SelectionChanged += (_, _) => ShowDisk();
+        AutomationProperties.SetName(_diskSearch, "Search disk usage");
+        _diskSearch.TextChanged += (_, _) => PopulateDisk();
+        _diskSearch.KeyDown += (_, e) =>
+        {
+            if (e.Key != Avalonia.Input.Key.Escape || string.IsNullOrEmpty(_diskSearch.Text)) return;
+            _diskSearch.Text = "";
+            e.Handled = true;
+        };
+        _diskCount.Margin = new Thickness(16, 0, 0, 0);
+        _diskCount.VerticalAlignment = VerticalAlignment.Center;
+        var toolbar = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), Margin = new Thickness(0, 0, 0, 12) };
+        toolbar.Children.Add(_diskSearch);
+        toolbar.Children.Add(WithColumn(_diskCount, 1));
         _cleanupTargets.ItemTemplate = new FuncDataTemplate<CleanupRow>((row, _) => CleanupRowView(row));
         _cleanupTargets.Height = 170;
         _inspectCleanup.Click += async (_, _) =>
@@ -400,7 +413,26 @@ public sealed partial class MainWindow
             _moveToTrash,
             Ui.Dim("Targets go to the system trash, not straight to deletion. Sizes are logical file bytes.", 11)
         }});
-        return MasterDetail(_disk, detail);
+        return new Grid
+        {
+            RowDefinitions = new RowDefinitions("Auto,*"),
+            Children = { toolbar, WithRow(MasterDetail(_disk, detail), 1) }
+        };
+    }
+
+    /// <summary>Filters the disk list by name, path or environment. The selection survives while the filter still shows it.</summary>
+    private void PopulateDisk()
+    {
+        var query = _diskSearch.Text?.Trim() ?? "";
+        var rows = _allDiskRows.Where(row => query.Length == 0 ||
+            row.Plain.Contains(query, StringComparison.OrdinalIgnoreCase)).ToArray();
+        var selected = _disk.SelectedItem as DiskRow;
+        _disk.ItemsSource = rows;
+        if (selected is not null)
+            _disk.SelectedItem = rows.FirstOrDefault(row => row.Project.Path == selected.Project.Path && row.Machine == selected.Machine);
+        _diskCount.Text = query.Length == 0
+            ? _allDiskRows.Length.ToString("N0") + (_allDiskRows.Length == 1 ? " project" : " projects")
+            : rows.Length.ToString("N0") + " of " + _allDiskRows.Length.ToString("N0");
     }
 
     private static Control DiskRowView(DiskRow? row)
