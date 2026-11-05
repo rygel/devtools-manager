@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>DevTools.Desktop</RootNamespace>
+    <AssemblyName>DevTools.Desktop</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.4" />
+    <ProjectReference Include="..\DevTools.Providers\DevTools.Providers.csproj" />
+    <ProjectReference Include="..\DevTools.Store\DevTools.Store.csproj" />
+  </ItemGroup>
+</Project>

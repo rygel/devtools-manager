@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>DevTools.Core</RootNamespace>
+    <AssemblyName>DevTools.Core</AssemblyName>
+  </PropertyGroup>
+</Project>

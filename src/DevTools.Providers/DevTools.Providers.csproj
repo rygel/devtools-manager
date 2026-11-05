@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>DevTools.Providers</RootNamespace>
+    <AssemblyName>DevTools.Providers</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DevTools.Core\DevTools.Core.csproj" />
+    <ProjectReference Include="..\DevTools.Scan\DevTools.Scan.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>DevTools.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+</Project>

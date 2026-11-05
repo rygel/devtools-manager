@@ -1,0 +1,14 @@
+bin/
+obj/
+artifacts/
+.vs/
+.idea/
+*.user
+*.suo
+TestResults/
+*.db
+*.db-wal
+*.db-shm
+node_modules/
+dist/
+

@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="src/DevTools.Core/DevTools.Core.csproj" />
+  <Project Path="src/DevTools.Scan/DevTools.Scan.csproj" />
+  <Project Path="src/DevTools.Providers/DevTools.Providers.csproj" />
+  <Project Path="src/DevTools.Store/DevTools.Store.csproj" />
+  <Project Path="src/DevTools.Cli/DevTools.Cli.csproj" />
+  <Project Path="src/DevTools.Desktop/DevTools.Desktop.csproj" />
+  <Project Path="tests/DevTools.Tests/DevTools.Tests.csproj" />
+</Solution>

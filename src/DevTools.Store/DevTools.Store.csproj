@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>DevTools.Store</RootNamespace>
+    <AssemblyName>DevTools.Store</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DevTools.Core\DevTools.Core.csproj" />
+    <ProjectReference Include="..\DevTools.Providers\DevTools.Providers.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.13" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>DevTools.Cli</RootNamespace>
+    <AssemblyName>devtools</AssemblyName>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>false</SelfContained>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <AssemblyTitle>devtools</AssemblyTitle>
+    <Product>DevTools Manager</Product>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DevTools.Core\DevTools.Core.csproj" />
+    <ProjectReference Include="..\DevTools.Scan\DevTools.Scan.csproj" />
+    <ProjectReference Include="..\DevTools.Providers\DevTools.Providers.csproj" />
+    <ProjectReference Include="..\DevTools.Store\DevTools.Store.csproj" />
+  </ItemGroup>
+</Project>

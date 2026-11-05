@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>devtools — toolchain manager</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/app.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">devtools</span>
+      <span class="brand-sub" id="machine-label"></span>
+    </div>
+    <div class="topbar-actions">
+      <input id="search" class="search" type="search" placeholder="filter projects  /" autocomplete="off" spellcheck="false" />
+      <button id="scan-button" class="button primary" type="button">
+        <span class="button-label">Scan</span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab is-active" data-view="overview" role="tab">Overview</button>
+    <button class="tab" data-view="projects" role="tab">Projects <span class="tab-count" id="count-projects"></span></button>
+    <button class="tab" data-view="toolchains" role="tab">Toolchains <span class="tab-count" id="count-toolchains"></span></button>
+    <button class="tab" data-view="disk" role="tab">Disk</button>
+  </nav>
+
+  <main id="view" class="view"></main>
+
+  <aside id="drawer" class="drawer" aria-hidden="true"></aside>
+  <div id="backdrop" class="backdrop" hidden></div>
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
